@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="Rise.App.Views.BrowsePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Grid Padding="56,56,56,0" d:Padding="20,12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <muxc:TeachingTip
+            x:Name="DiscyOnAlbum"
+            Title="Managing and organising your albums"
+            ActionButtonContent="Learn more"
+            CloseButtonContent="Got it!"
+            IsLightDismissEnabled="True"
+            PlacementMargin="20"
+            PreferredPlacement="Auto"
+            Subtitle="Use the command bar to sort your albums into different types. Click on an album to see what's in store. You can add a whole album to a playlist, shuffle or share with friends.">
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="ms-appx:///Assets/Branding/DiscyBanner.png" />
+            </muxc:TeachingTip.HeroContent>
+        </muxc:TeachingTip>
+
+        <Image
+            Width="32"
+            Height="32"
+            Margin="0,4,0,0"
+            HorizontalAlignment="Left"
+            Source="ms-appx:///Assets/NavigationView/BrowsePage/Colorful.png" />
+        <TextBlock
+            Margin="48,0,0,0"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="{markup:ResourceHelper Name=Browse}" />
+
+
+
+        <CommandBar
+            Margin="-8"
+            HorizontalAlignment="Right"
+            Background="Transparent"
+            DefaultLabelPosition="Right">
+            <AppBarButton Label="{markup:ResourceHelper Name=PinToSidebar}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE141;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton Label="{markup:ResourceHelper Name=ShowInFileExplorer}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </CommandBar>
+    </Grid>
+</Page>

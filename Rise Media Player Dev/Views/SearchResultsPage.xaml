@@ -1,0 +1,180 @@
+﻿<uc:MediaPageBase
+    x:Class="Rise.App.Views.SearchResultsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="using:Rise.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.Views"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:DesignHeight="320"
+    d:DesignWidth="500"
+    mc:Ignorable="d">
+
+    <uc:MediaPageBase.Resources>
+        <conv:ResourceToString x:Key="ResToStr" />
+
+        <CollectionViewSource
+            x:Name="MatchingItemsSource"
+            IsSourceGrouped="True"
+            Source="{x:Bind GroupedItems}" />
+
+        <DataTemplate x:Key="SongTemplate" x:DataType="viewmodels:SongViewModel">
+            <Grid
+                Width="256"
+                Padding="12"
+                ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="64" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Border
+                    x:Name="AlbumThumb"
+                    Height="64"
+                    CornerRadius="8">
+                    <Border.Background>
+                        <ImageBrush Stretch="UniformToFill">
+                            <ImageBrush.ImageSource>
+                                <BitmapImage
+                                    DecodePixelHeight="64"
+                                    DecodePixelType="Logical"
+                                    DecodePixelWidth="64"
+                                    UriSource="{x:Bind Thumbnail}" />
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
+                    </Border.Background>
+                </Border>
+
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical"
+                    Spacing="2">
+                    <TextBlock
+                        FontSize="16"
+                        MaxLines="1"
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Text="{x:Bind Title}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind Artist}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AlbumTemplate" x:DataType="viewmodels:AlbumViewModel">
+            <uc:AlbumData Album="{x:Bind}" ViewMode="HorizontalTile" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="ArtistTemplate" x:DataType="viewmodels:ArtistViewModel">
+            <Grid
+                Width="256"
+                Padding="12"
+                ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="64" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Border
+                    x:Name="ArtistThumb"
+                    Height="64"
+                    CornerRadius="32">
+                    <Border.Background>
+                        <ImageBrush Stretch="UniformToFill">
+                            <ImageBrush.ImageSource>
+                                <BitmapImage
+                                    DecodePixelHeight="64"
+                                    DecodePixelType="Logical"
+                                    DecodePixelWidth="64"
+                                    UriSource="{x:Bind Picture}" />
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
+                    </Border.Background>
+                </Border>
+
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical"
+                    Spacing="2">
+                    <TextBlock
+                        FontSize="16"
+                        MaxLines="1"
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Text="{x:Bind Name}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind LocalizedSongCount}" />
+                    <TextBlock
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind LocalizedAlbumCount}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <local:SearchResultTemplateSelector
+            x:Key="ResultTemplateSelector"
+            AlbumTemplate="{StaticResource AlbumTemplate}"
+            ArtistTemplate="{StaticResource ArtistTemplate}"
+            SongTemplate="{StaticResource SongTemplate}" />
+    </uc:MediaPageBase.Resources>
+
+    <Grid Padding="56,56,56,0" d:Padding="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal"
+            Spacing="10">
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=SearchResults}" />
+            <TextBlock
+                x:Name="ResultsFor"
+                Height="20"
+                Margin="0,0,0,3"
+                VerticalAlignment="Bottom" />
+        </StackPanel>
+
+        <GridView
+            x:Name="MainGrid"
+            Grid.Row="1"
+            Margin="-56,0"
+            Padding="44,0,12,120"
+            IsItemClickEnabled="True"
+            ItemClick="MainGrid_ItemClick"
+            ItemTemplateSelector="{StaticResource ResultTemplateSelector}"
+            ItemsSource="{x:Bind MatchingItemsSource.View}"
+            SelectionMode="Single">
+            <GridView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                FontSize="16"
+                                Style="{StaticResource SubheaderTextBlockStyle}"
+                                Text="{Binding Key, Converter={StaticResource ResToStr}, Mode=OneTime}" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </GridView.GroupStyle>
+
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid AreStickyGroupHeadersEnabled="False" Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
+    </Grid>
+</uc:MediaPageBase>

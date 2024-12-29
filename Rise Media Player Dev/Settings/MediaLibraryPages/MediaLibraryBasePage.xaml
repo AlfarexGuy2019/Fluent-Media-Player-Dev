@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="Rise.App.Settings.MediaLibraryBasePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+        <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+    </Page.Resources>
+
+    <Grid>
+        <muxc:NavigationView
+            x:Name="MediaNav"
+            Margin="32,4,32,0"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            ItemInvoked="MediaNav_ItemInvoked"
+            PaneDisplayMode="Top"
+            SelectedItem="{x:Bind Local}">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem
+                    x:Name="Local"
+                    Content="{markup:ResourceHelper Name=/Settings/MediaLibraryFilesAndFolders}"
+                    Tag="Local" />
+                <muxc:NavigationViewItem
+                    x:Name="Services"
+                    Content="{markup:ResourceHelper Name=OnlineServices}"
+                    Tag="Services" />
+                <muxc:NavigationViewItem
+                    x:Name="Scanning"
+                    Content="{markup:ResourceHelper Name=Scanning}"
+                    Tag="Scanning" />
+            </muxc:NavigationView.MenuItems>
+
+            <ScrollViewer
+                Margin="-32,0"
+                Padding="48,0"
+                VerticalScrollBarVisibility="Auto">
+                <Frame x:Name="MediaFrame" HorizontalAlignment="Stretch" />
+            </ScrollViewer>
+        </muxc:NavigationView>
+    </Grid>
+</Page>

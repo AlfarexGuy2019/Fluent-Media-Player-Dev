@@ -1,0 +1,74 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CardStyles.xaml" />
+        <ResourceDictionary Source="ListStyles.xaml" />
+        <ResourceDictionary Source="PlayerStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <LinearGradientBrush x:Key="GradientBlackToTransparentBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Offset="1" Color="#1affffff" />
+                <GradientStop Offset="0" Color="#CCffffff" />
+            </LinearGradientBrush>
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="Dark">
+            <LinearGradientBrush x:Key="GradientBlackToTransparentBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Offset="1" Color="#00000000" />
+                <GradientStop Offset="0" Color="#99000000" />
+            </LinearGradientBrush>
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="HighContrast">
+            <SolidColorBrush x:Key="GradientBlackToTransparentBrush" Color="#000000" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <FontFamily x:Key="SettingsIconsFontFamily">ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons</FontFamily>
+
+    <!--  Title bar resources  -->
+    <Thickness x:Key="TitleBarIconMargin">0,0,0,0</Thickness>
+    <BitmapIconSource
+        x:Key="TitleBarAppIconSource"
+        ShowAsMonochrome="False"
+        UriSource="ms-appx:///Assets/App/TitleBar.png" />
+
+    <Style
+        x:Key="AppBarButtonCompactStyle"
+        BasedOn="{StaticResource DefaultAppBarButtonStyle}"
+        TargetType="AppBarButton">
+        <Setter Property="LabelPosition" Value="Collapsed" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Width" Value="40" />
+    </Style>
+
+    <Style
+        x:Key="AppBarToggleButtonCompactStyle"
+        BasedOn="{StaticResource DefaultAppBarToggleButtonStyle}"
+        TargetType="AppBarToggleButton">
+        <Setter Property="LabelPosition" Value="Collapsed" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Width" Value="40" />
+    </Style>
+
+    <Style
+        x:Key="TransparentButtonStyle"
+        BasedOn="{StaticResource DefaultButtonStyle}"
+        TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style TargetType="FontIcon">
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <Style x:Key="SubheaderTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Padding" Value="0,16,0,5" />
+    </Style>
+</ResourceDictionary>
